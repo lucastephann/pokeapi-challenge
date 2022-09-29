@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { PokemonDto } from 'src/application/models/dto/pokemon.dto';
 import { Pokemon } from 'src/application/models/entity/pokemon.entity';
 import { Repository } from 'typeorm';
 
@@ -10,7 +11,7 @@ export class PokemonRepository {
         private pokemonRepository: Repository<Pokemon>,
     ) {}
 
-    save(pokemon: Pokemon) {
+    async save(pokemon: PokemonDto) {
         this.pokemonRepository.save(pokemon);
     }
 

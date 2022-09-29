@@ -1,5 +1,4 @@
-import { Controller, Get, Req } from '@nestjs/common';
-import { Request } from 'express';
+import { Controller, Get, Param } from '@nestjs/common';
 import { PokemonDto } from 'src/application/models/dto/pokemon.dto';
 import { PokemonService } from '../service/pokemon.service';
 
@@ -7,10 +6,8 @@ import { PokemonService } from '../service/pokemon.service';
 export class PokemonController {
     constructor(private readonly service: PokemonService) {}
 
-    @Get()
-    findByName(@Req() request: Request): PokemonDto {
-        const pokemonName = request.body.pokemonName.toLowerCase();
-
-        return this.service.getPokemonByName(pokemonName);
+    @Get(':pokemonName')
+    async findByName(@Param('pokemonName') pokemonName: string): Promise<PokemonDto> {
+        return await this.service.getPokemonByName(pokemonName);
     }
 }
