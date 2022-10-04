@@ -2,7 +2,7 @@ import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { PokemonDto } from 'src/application/models/dto/pokemon.dto';
 import { PokemonRepository } from '../repository/pokemon.repository';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, NotFoundError } from 'rxjs';
 
 @Injectable()
 export class PokemonService {
@@ -50,7 +50,7 @@ export class PokemonService {
             return pokemon;
         } catch (e) {
             if (e.response.status === 404) {
-                console.log(`The Pokémon named ${name} does not exist`);
+                throw new Error(`The Pokémon named ${name} does not exist`);
             }
             return;
         }

@@ -10,4 +10,9 @@ export class Pokemon {
 
     @Column()
     artworkUrl: string;
+
+    constructor(name: string, artworkUrl: string) {
+        this.name = name;
+        this.artworkUrl = artworkUrl;
+    }
 }
